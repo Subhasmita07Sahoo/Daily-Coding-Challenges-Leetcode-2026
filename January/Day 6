@@ -1,0 +1,43 @@
+1161. Maximum Level Sum of a Binary Tree
+
+
+import java.util.*;
+
+class Solution {
+    public int maxLevelSum(TreeNode root) {
+        int maxSum = Integer.MIN_VALUE;
+        int resultLevel = 0;
+        int currLevel = 1;
+
+        Queue<TreeNode> que = new LinkedList<>();
+        que.add(root);
+
+        while (!que.isEmpty()) {
+            int n = que.size();
+            int sum = 0;
+
+            while (n-- > 0) {
+                TreeNode node = que.poll();
+
+                sum += node.val;
+
+                if (node.left != null) {
+                    que.add(node.left);
+                }
+
+                if (node.right != null) {
+                    que.add(node.right);
+                }
+            }
+
+            if (sum > maxSum) {
+                maxSum = sum;
+                resultLevel = currLevel;
+            }
+
+            currLevel++;
+        }
+
+        return resultLevel;
+    }
+}
